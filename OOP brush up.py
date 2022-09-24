@@ -261,3 +261,87 @@ display_info(company='CD Projekt', price=100)
 
 
 
+################################Classes the basics#################################################
+# 7.4 Display the value of the __name__ attribute of the Vehicle class to the console.
+
+# class Vehicle:
+#     """This is a Vehicle class."""
+    
+print(Vehicle.__name__)
+
+
+################################Classes attr#################################################
+# 8.1 Implement a class named Phone. In the Phone class, define a class attribute named brand and set its value to 'Apple'. Then, using dot notation and print() function, display the value of the brand attribute of the Phone class to the console.
+class Phone:
+    brand = 'Apple'
+    
+print(Phone.brand)
+
+
+# 8.2 Implement a class named Phone. In the Phone class, define two class attributes with names:
+# brand
+# model
+
+# and set their values to:
+# 'Apple'
+# 'iPhone X'
+
+# Find it's attr with getattr
+class Phone:
+    brand = 'Apple'
+    model = 'iPhone X'
+print(getattr(Phone,'brand'))
+print(getattr(Phone,'model'))
+
+
+# 8.3 A class named Phone is defined below. Using dot notation, modify the value of the attributes:
+# brand to 'Samsung'
+# model to 'Galaxy'
+
+# In response, print the values for the brand and model attributes to the console as shown below.
+class Phone:
+    brand = 'Apple'
+    model = 'iPhone X'
+Phone.brand = 'Samsung'
+Phone.model = 'Galaxy'
+
+print(f'brand: {Phone.brand}')
+print(f'model: {Phone.model}')
+
+
+# 8.4A class named Laptop is defined below. Using the setattr() built-in function modify the value of attributes:
+# brand to 'Acer'
+# model to 'Predator'
+# In response, using the built-in function getattr() and print(), print the values of the brand and model attributes to the console as shown below.
+class Laptop:
+    brand = 'Lenovo'
+    model = 'ThinkPad'
+setattr(Laptop, 'brand', 'Acer')
+setattr(Laptop, 'model', 'Predator')
+print(f"brand: {getattr(Laptop, 'brand')}")
+print(f"model: {getattr(Laptop, 'model')}")
+
+
+# 8.5Implement a class named OnlineShop with the class attributes set appropriately:
+# sector to the value 'electronics'
+# sector_code to the value 'ELE'
+# is_public_company to the value False
+# Then, using dot notation, add a class attribute called country and set its value to 'USA'. In response, print the user-defined OnlineShop class attribute names as shown below.
+class OnlineShop:
+    sector = 'electronics'
+    sector_code  = 'ELE'
+    is_public_company   = 'False'
+
+OnlineShop.country = 'USA'
+list1=[]
+for i in OnlineShop.__dict__:
+    list1.append(i)
+    
+    
+for j in sorted(list1,reverse=True):
+    if '__' in j:
+        list1.remove(j)
+print(list1)
+
+
+
