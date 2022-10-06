@@ -413,6 +413,206 @@ for attr, value in OnlineShop.__dict__.items():
 
 
 
+        
+ # 9.1 Implement a class called Laptop that sets the following instance attributes when creating an instance:
+# brand
+# model
+# price
+
+# Then create an instance named laptop with the following attribute values:
+# brand = 'Acer'
+# model = 'Predator'
+# price = 5490
+
+# Tip: Use the special method __init__().
+# In response, print the value of the __dict__ attribute of the laptop instance.
+
+#result
+#{'brand': 'Acer', 'model': 'Predator', 'price': 5490}
+
+class Laptop:
+    def __init__(self, brand, model , price):
+        self.brand=brand
+        self.model=model
+        self.price=price
+        
+laptop=Laptop(brand = 'Acer',model = 'Predator',price = 5490)
+
+print(laptop.__dict__)
+
+
+# 9.2 A class called Laptop was implemented.
+# Implement a method in the Laptop class called display_instance_attrs() that displays the names of all the attributes of the Laptop instance.
+# Then create an instance named laptop with the given attribute values:
+# brand = 'Dell'
+# model = 'Inspiron'
+# price = 3699
+
+# In response, call display_instance_attrs() method on the laptop instance.
+# Expected result:
+# brand
+# model
+# price
+
+class Laptop:
+    def __init__(self, brand, model , price):
+        self.brand=brand
+        self.model=model
+        self.price=price
+    def display_instance_attrs(self):
+        for i in self.__dict__: 
+            print(i)
+    
+        
+laptop=Laptop(brand = 'Dell',model = 'Inspiration',price = 3699)
+
+laptop.display_instance_attrs()
+
+
+#9.3A class called Laptop was implemented.
+
+# Implement a method in the Laptop class called display_attrs_with_values(), which displays the names of all the attributes of the Laptop class with their values as shown below (attribute name -> attribute value).
+# Then create an instance named laptop with the following values:
+
+# brand = 'Dell'
+# model = 'Inspiron'
+# price = 3699
+
+# In response, call display_attrs_with_values() method on the laptop instance.
+# Expected result:
+# brand -> Dell
+# model -> Inspiron
+# price -> 3699
+
+
+class Laptop:
+    def __init__(self, brand, model , price):
+        self.brand=brand
+        self.model=model
+        self.price=price
+    def display_attrs_with_values(self):
+        for i,j in self.__dict__.items():
+            print(i,' ->',j)
+    
+        
+laptop=Laptop(brand = 'Dell',model = 'Inspiration',price = 3699)
+
+laptop.display_attrs_with_values()
+
+
+
+#9.4Implement a class named Vector that takes any number of n-dimensional vector coordinates as arguments when creating an instance (without any validation) and assign to instance attribute named components. Then create two instances with following coordinates:
+# (1, 2)
+# (4, 5, 2)
+# and assign to variables v1 and v2 respectively.
+
+# In response, print the value of the components attribute for v1 and v2 instance as shown below.
+# Expected result:
+# v1 -> (1, 2)
+# v2 -> (4, 5, 2)
+
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+v1 = Vector(1, 2)
+v2 = Vector(4, 5, 2)
+
+print(f'v1 -> {v1.components}')
+print(f'v2 -> {v2.components}')
+
+
+#9.5 Implement a class called Bucket that takes any number of named arguments (keyword arguments - use **kwargs) when creating an instance. The name of the argument is the name of the instance attribute, and the value for the argument is the value for the instance attribute.
+# Example:
+# [IN]: bucket = Bucket(apple=3.5)
+# [IN]: print(bucket.__dict__)
+# [OUT]: {'apple': 3.5}
+
+
+# Then create instance named bucket by adding the following attributes with their values:
+# apple = 3.5
+# milk = 2.5
+# juice = 4.9
+# water = 2.5
+
+# In response, print the value of __dict__ attribute for the bucket instance.
+
+# Expected result:
+# {'apple': 3.5, 'milk': 2.5, 'juice': 4.9, 'water': 2.5}
+
+class Bucket:
+    def __init__(self, **kwargs):
+        # for attr_name, attr_value in kwargs.items():
+        #     print(self.attr_name, self.attr_value)
+        self.kwargs=kwargs
+
+bucket=Bucket(
+    apple = 3.5,
+    milk = 2.5,
+    juice = 4.9,
+    water = 2.5)
+
+print(next(iter(bucket.__dict__.values())))
+
+# 9.6 Implement a class called Car that sets the following instance attributes when creating an instance:
+# brand
+# model
+# price
+# type_of_car, by default 'sedan'
+
+# Then create an instance named car with the given values:
+# brand = 'Opel'
+# model = 'Insignia'
+# price = 115000
+
+# In response, print the value of the __dict__ attribute of the car instance.
+
+# Expected result:
+# {'brand': 'Opel', 'model': 'Insignia', 'price': 115000, 'type_of_car': 'sedan'}
+
+class Car:
+    def __init__(self, brand,model, price, type_of_car='sedan'):
+        self.brand = brand 
+        self.model = model
+        self.price = price
+        self.type_of_car = type_of_car   
+
+car=Car(brand='Opel', model='Insignia', price = 115000)
+
+print(car.__dict__)
+
+
+#9.7Implement a class called Laptop that sets the following instance attributes when creating an instance:
+# brand
+# model
+# price
+# When creating an instance, add validation for the price attribute. The value of the price attribute must be an int or float type greater than zero. If it is not, raise the TypeError with the following message:
+# 'The price attribute must be a positive int or float.'
+
+
+# Then create an instance called laptop with the given attributes:
+# brand = 'Acer'
+# model = 'Predator'
+# price = 5490
+# In response, print the value of the __dict__ attribute of the laptop instance.
+
+# Expected result:
+# {'brand': 'Acer', 'model': 'Predator', 'price': 5490}
+
+
+class Laptop:
+    def __init__(self, brand, model, price):
+        self.brand = brand
+        self.model = model
+        if isinstance(price, (int, float)) and price > 0:
+            self.price = price
+        else:
+            raise TypeError(
+                'The price attribute must be a positive int or float.'
+            )
+
+laptop = Laptop('Acer', 'Predator', 5490)
+print(laptop.__dict__)
+       
 
 
 
