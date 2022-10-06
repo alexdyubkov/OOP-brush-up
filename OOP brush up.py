@@ -345,3 +345,74 @@ print(list1)
 
 
 
+
+
+# 8.6  A class named OnlineShop was defined with the class attributes set accordingly:
+# sector to the value 'electronics'
+# sector_code to the value 'ELE'
+# is_public_company to the value False
+# Using the del statement remove the class attribute named sector_code. In response, print the rest of the user-defined OnlineShop class attribute names as a list as shown below.
+
+# class OnlineShop:
+#     sector = 'electronics'
+#     sector_code = 'ELE'
+#     is_public_company = False
+
+
+del OnlineShop.sector_code
+
+list1=[]
+for i in OnlineShop.__dict__:
+    if not i.startswith('_'):
+        list1.append(i)
+print(list1)
+
+
+
+
+
+
+#8.7 same as 6.6 but with delattr() 
+# class OnlineShop:
+#     sector = 'electronics'
+#     sector_code = 'ELE'
+#     is_public_company = False
+
+delattr(OnlineShop,'sector_code')
+
+list1=[]
+for i in OnlineShop.__dict__:
+    if not i.startswith('_'):
+        list1.append(i)
+print(list1)
+
+
+
+# 8.8A class named OnlineShop was defined with the class attributes set accordingly:
+# sector to the value 'electronics'
+# sector_code to the value 'ELE'
+# is_public_company to the value False
+# Display all user-defined OnlineShop class attribute names with their values as shown below.
+# sector -> electronics
+# sector_code -> ELE
+# is_public_company -> False
+
+
+# class OnlineShop:
+#     sector = 'electronics'
+#     sector_code = 'ELE'
+#     is_public_company = False
+ 
+ 
+for attr, value in OnlineShop.__dict__.items():
+    if not attr.startswith('_'):
+        print(f'{attr} -> {value}')
+
+
+
+
+
+
+
+
+
