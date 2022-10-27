@@ -815,6 +815,149 @@ except TypeError as error:
 
 
 
+#12.3 A class called Laptop was implemented. The __init __() method sets the value of the price protected attribute that stores the price of the laptop (without any validation).
+#Create an instance of the Laptop class with a price of 3499 and try to set the price to -3000 using the set_price() method. If an error is raised, print the error message to the console. Use a try ... except ... clause in your solution.
 
+#Expected result:
+#The price attribute must be a positive int or float value.
+
+class Laptop:  
+    def __init__(self, price):
+        self._price = price
+    def get_price(self):
+        return self._price
+    def set_price(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError(
+                'The price attribute must be an int or float type.'
+            )
+        if not value > 0:
+            raise ValueError(
+                'The price attribute must be a positive int or '
+                'float value.'
+            )
+        self._price = value
+
+laptop=Laptop(3499)
+try:
+    laptop.set_price(-3000)
+except(ValueError) as error:
+    print(error)
+
+#12.4A class called Laptop was implemented.
+# Add validation of the price attribute also at the stage of creating the instance (in __init__() method).
+# Then try to create an instance of the Laptop class with a price of -3499. If an error is raised, print the error message to the console. Use a try ... except ... clause in your solution.
+
+# Expected result:
+# The price attribute must be a positive int or float value.
+class Laptop:
+    def __init__(self, price):
+        if price < 0:
+            raise ValueError(
+                'The price attribute must be a positive int or '
+                'float value.')            
+        else:
+            self._price = price
+
+    def get_price(self):
+        return self._price
+
+    def set_price(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError(
+                'The price attribute must be an int or float type.'
+            )
+        if not value > 0:
+            raise ValueError(
+                'The price attribute must be a positive int or '
+                'float value.'
+            )
+        self._price = value
+
+try:
+    laptop=Laptop(-3499)
+except ValueError as error:
+    print(error)
+
+#12.5Implement a class named Person that has one protected instance attribute named first_name. Next, implement a method get_first_name() which reads the value of the first_name protected attribute. Then, using the get_first_name() method and the property class (do it in the standard way) create a property named first_name (read-only property).
+#Create an instance of the Person class and set the first_name attribute to 'John'. Print the value of the first_name attribute of this instance to the console.
+# Expected result:
+# John
+
+class Person:
+    def __init__(self,first_name):
+        self._first_name = first_name
+    def get_first_name(self):
+        return self._first_name
+    name_property = property(get_first_name)
+
+person =Person(first_name='John')
+person.name_property
+
+
+#12.4Implement a class named Person that has one protected attribute first_name. Next, implement a method get_first_name() which reads the value of the first_name protected attribute. Declare a method  set_first_name() that allows you to modify the value of the first_name protected attribute (without validation).
+# Then, using the get_first_name(), set_first_name() methods and the property class (do it in the standard way) create a property called first_name (property to read and modify).
+# Create an instance of the Person class and set the first_name attribute to 'John'. Then, using the set_first_name() method, set new value 'Mike'.
+# In response, print the value of the first_name attribute to the console.
+
+# Expected result:
+# Mike
+
+class Person:
+    def __init__(self,first_name):
+        self._first_name = first_name  
+    def get_first_name(self):
+        return self._first_name
+    def set_first_name(self,first_name):
+        self._first_name = first_name
+    first_name = property(get_first_name,set_first_name)
+
+
+person=Person('John')
+person.set_first_name('Mike')
+person.first_name
+
+
+# 12.5Implement a class named Person that has two protected attributes: first_name and last_name, respectively. Next implement methods named get_first_name(), set_first_name(), get_last_name(), set_last_name(), which allows you to read and modify the value of the first_name and last_name protected attributes.
+# Then, using the methods get_first_name(), set_first_name(), get_last_name(), set_last_name() and the property class (do it in the standard way) create properties: first_name and last_name (properties to read and modify).
+
+# Create an instance of the Person class with the following values:
+# first_name = 'John'
+# last_name = 'Dow'
+# Then print the values of these attributes to the console as shown below.
+# Using the dot notation, modify the attribute values for this instance, respectively:
+# first_name to the value 'Tom'
+# last_name to the value 'Smith'
+# In response, print the __dict__ attribute of the created instance to the console.
+
+# Expected result:
+# John
+# Dow
+# {'_first_name': 'Tom', '_last_name': 'Smith'}
+
+class Person:
+    def __init__(self,first_name,last_name):
+        self._first_name = first_name  
+        self._last_name = last_name
+    def get_first_name(self):
+        return self._first_name
+    def set_first_name(self,first_name):
+        self._first_name = first_name
+    first_name = property(get_first_name,set_first_name)
+
+    def get_last_name(self):
+        return self._last_name
+    def set_last_name(self,last_name):
+        self._last_name = last_name
+    last_name = property(get_last_name,set_last_name)
+
+
+person=Person('John','Dow')
+print(person.first_name)
+print(person.last_name)
+
+person.first_name='Tom'
+person.last_name="Smith"
+print(person.__dict__)
 
 
