@@ -961,3 +961,190 @@ person.last_name="Smith"
 print(person.__dict__)
 
 
+#12.6A class named Person was implemented.
+# Implement the del_first_name() method to remove the first_name protected attribute.
+# Then, using the methods get_first_name(), set_first_name(), del_first_name() and the property class (do this in the standard way) create property named first_name (properties to read, modify and delete).
+# Create an instance of the Person class named person and assign the value 'Tom' to first_name. Use the del_first_name() method to delete the first_name attribute of the person instance. Display the __dict__ attribute of the person instance to the console.
+
+# Expected result:
+# {}
+
+class Person:
+    def __init__(self, first_name):
+        self._first_name = first_name
+
+    def get_first_name(self):
+        return self._first_name
+    def set_first_name(self, value):
+        self._first_name = value
+    def del_first_name(self, value):
+        del self._first_name
+
+    first_name=property(get_first_name, set_first_name, del_first_name)
+
+person=Person('Tom')
+person.del_first_name('Tom')
+print(person.__dict__)
+
+# 12.7 Implement a class named Pet that has one protected instance attribute name. Then implement a method name() which reads the value of the protected name attribute.
+# Create a property name (read-only) using the @property decorator.
+# Create an instance of the Pet class named pet and set name attribute to 'Max'. In response, print the contents of the __dict__ attribute of this instance.
+
+# Expected result:
+# {'_name': 'Max'}
+
+class Pet:
+    def __init__(self, name):
+        self._name = name
+    @property
+    def name(self):
+        return self._name
+
+pet=Pet('Max')
+print(pet.__dict__)
+
+
+
+#12.8Implement a class named Pet that has one protected instance attribute name. Then, using the @property decorator, create a property name (property to read and modify, without validation).
+# Create an instance of the Pet class named pet and set the name attribute to 'Max'. Then, using dot notation, modify the value of the name attribute to 'Oscar'.
+# In response, print the contents of the __dict__ attribute of this instance to the console.
+
+# Expected result:
+# {'_name': 'Oscar'}
+
+
+class Pet:
+    def __init__(self, name):
+        self._name = name      
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self,new_name):
+        self._name = new_name   
+
+pet=Pet('Max')
+pet.name='Oscar'
+print(pet.__dict__)
+
+
+#12.9Implement a class named Pet that has two protected instance attributes: name and age, respectively. Then, using the @property decorator, create properties: name and age, respectively (properties to read and modify, without validation).
+# Create an instance of the Pet class with the name pet and attributes:
+# name = 'Max'
+# age = 5
+# Print the __dict__ attribute of the pet instance to the console. Then modify the attributes using the dot notation:
+# name to the value 'Tom'
+# age to the value 8
+# Again, print the __dict__ attribute of the pet instance to the console again.
+
+# Expected result:
+# {'_name': 'Max', '_age': 5}
+# {'_name': 'Tom', '_age': 8}
+
+class Pet:
+    def __init__(self, name, age):
+        self._name = name      
+        self._age = age
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self,new_name):
+        self._name = new_name 
+
+    @property
+    def age(self):
+        return self._age
+    @age.setter
+    def age(self,new_age):
+        self._age = new_age  
+
+
+
+pet=Pet('Max',5)
+print(pet.__dict__)
+pet.name='Tom'; pet.age=8
+print(pet.__dict__)
+
+#12.10 A class called Pet is implemented that has two properties: name and age (see below). Add validation to the age property at the stage of object creation and attribute modification:
+# the value of the age attribute must be an int type, otherwise raise a TypeError with the following message:
+# 'The value of age must be of type int.'
+# the value of the age attribute must be positive, otherwise raise ValueError with the following message:
+# 'The value of age must be a positive integer.'
+# Then try to create an instance of the Pet class named pet and set the following values:
+# 'Max'
+# 'seven'
+# If there is an error, print an error message to the console. Use a try ... except ... clause in your solution.
+
+# Expected result:
+# The value of age must be of type int.
+class Pet:
+
+    def __init__(self, name, age):
+        self._name = name
+        self.age = age
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, value):
+        if not isinstance(value, int):
+            raise TypeError(
+                'The value of age must be of type int.'
+            )
+        if not value > 0:
+            raise ValueError(
+                'The value of age must be a positive integer.'
+            )
+        self._age = value
+
+try:
+    pet = Pet('Max', 'seven')
+except TypeError as error:
+    print(error)
+except ValueError as error:
+    print(error)
+
+# 12.11Implement a class Game that has a property named level (read and modify property, defaults to 0). The value of the level attribute should be an integer in the range [0, 100]. Add validation at the instance creation and attribute modification stage. If the value is not of the int type, raise a TypeError with the following message:
+# 'The value of level must be of type int.'
+# If the value is outside the range [0, 100], set the exceeded boundary value (0 or 100 respectively). Then create a list called games consisting of four instances of the Game class:
+# games = [Game(), Game(10), Game(-10), Game(120)]
+# Iterate through the games list and print the value of the level attribute for each instance.
+
+# Expected result:
+# 0
+# 10
+# 0
+# 100
+class Game:
+    def __init__(self, level=None):
+        self.level = level if level else 0
+
+    @property
+    def level(self):
+        return self._level
+
+    @level.setter
+    def level(self, value):
+        if not isinstance(value, int):
+            raise TypeError('The value of level must be of type int.')
+        if value < 0:
+            self._level = 0
+        elif value > 100:
+            self._level = 100
+        else:
+            self._level = value
+
+games = [Game(), Game(10), Game(-10), Game(120)]
+for game in games:
+    print(game.level)
+
