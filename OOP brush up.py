@@ -1148,3 +1148,100 @@ games = [Game(), Game(10), Game(-10), Game(120)]
 for game in games:
     print(game.level)
 
+ 
+
+#13.1Implement a class named Circle that will have the protected instance attribute radius - the radius of the circle (readable and modifiable property). Use the @property decorator.
+# Then create an instance named circle with radius=3.
+# In response, display the __dict__ attribute of circle instance.
+
+# Expected result:
+# {'_radius': 3}
+
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self):
+        return self._radius
+    @radius.setter
+    def radius(radius, new_radius):
+        self._radius = new_radius
+
+circle=Circle(radius=3)
+print(circle.__dict__ )
+
+
+# 13.2A class named Circle is given. Add a property called area (read-only) to the class that calculates the area of a circle with a given radius. This property should only be computed at first reading or after modifying the radius attribute. To do this, also modify the way of setting the value of the radius attribute in the __init __() method. Make sure that the value of the area attribute is recalculated after changing the radius attribute.
+# Then create an instance named circle with radius=3.
+# In response, display the value of the area attribute to the console (round the result to four decimal places).
+
+# Expected result:
+# 28.2743
+
+import math
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+        self._area = None
+    @property
+    def radius(self):
+        return self._radius
+    @radius.setter
+    def radius(self, value):
+        self._radius = value
+        self._area = None
+    @property
+    def area(self):
+        if self._area is None:
+            self._area = math.pi * self._radius * self._radius
+        return self._area
+
+circle = Circle(3)
+print(f'{circle.area:.4f}')
+
+#13.3Implement a class named Rectangle which will have the following properties:
+# width
+# height
+# The width and height of the rectangle, respectively (for reading and for modification). Also add a property named area that stores the area of the rectangle (read-only). This property should be computed only at the first reading or after modifying any of the rectangle sides. Skip attribute validation.
+# Then create an instance named rectangle with a width = 3 and a height = 4 and print the information about the rectangle instance to the console as shown below.
+
+# Expected result:
+# width: 3, height: 4 -> area: 12
+
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self._area = None
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        self._width = value
+        self._area = None
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, value):
+        self._height = value
+        self._area = None
+
+    @property
+    def area(self):
+        if self._area is None:
+            self._area = self._width * self._height
+        return self._area
+
+rectangle = Rectangle(3, 4)
+print(
+    f'width: {rectangle.width}, height: {rectangle.height} -> '
+    f'area: {rectangle.area}'
+)
+    
