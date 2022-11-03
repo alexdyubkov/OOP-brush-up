@@ -1245,3 +1245,55 @@ print(
     f'area: {rectangle.area}'
 )
     
+
+    
+    
+    
+    
+    
+  #14.1Using the classmethod class (do it in the standard way) implement a class named Person that has a class method named show_details() which displays the following text to the console:
+# 'Running from Person class.'
+# Try to pass the class name using the appropriate attribute of the Person class.
+# In response, call the show_details() class method.
+
+# Expected result:
+# Running from Person class.
+
+class Person:
+    def show_details(cls):
+        print(f'Running from {cls.__name__} class.')
+        
+    show_details = classmethod(show_details)
+
+Person.show_details()
+
+#14.2 Same as 14.1 but with decorator
+class Container:
+    @classmethod
+    def show_details(cls):
+        print(f'Running from {cls.__name__} class.')
+        
+Container.show_details()
+
+
+# 14.3Implement a class named Person which has a class attribute named instances as an empty list. Then, each time you create an instance of the Person class, add it to the Person.instances list (use the __init __() method for this).
+# Also implement a class method called count_instances() that returns the number of Person objects created (the number of items in the Person.instances list).
+# Create three instances of the Person class. Then call the count_instances() class method and print result to the console
+
+# Expected result:
+# 3
+
+class Person:
+    instances = []
+
+    def __init__(self):
+        Person.instances.append(self)
+    
+    @classmethod
+    def count_instances(cls):
+        return (Person.instances)
+
+p1 = Person()
+p2 = Person()
+p3 = Person()
+print(Person.count_instances())
