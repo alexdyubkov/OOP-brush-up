@@ -1550,3 +1550,181 @@ class Doc:
 doc1 = Doc('Python')
 doc2 = Doc('3.8')
 print(doc1 == doc2)
+
+
+#17.1 Multilevel Inheritance
+class Container:
+    pass
+
+
+class PlasticContainer(Container):
+    pass
+class MetalContainer(Container):
+    pass
+class CustomContainer:
+    pass
+
+print(issubclass(PlasticContainer, Container))
+print(issubclass(MetalContainer, Container))
+print(issubclass(CustomContainer, Container))
+
+
+#17.2 MRO
+class Container:
+    pass
+
+class PlasticContainer(Container):
+    pass
+
+class MetalContainer(Container):
+    pass
+
+class SmallPlasticContainer(PlasticContainer):
+    pass
+
+print(SmallPlasticContainer.mro())
+
+# 17.3The following classes are implemented:
+# Vehicle
+# LandVehicle
+# AirVehicle
+# Define a display_info() method in the Vehicle class to display the class name along with the value of the category attribute. The method is supposed to work for all classes.
+
+# Expected result:
+# Vehicle -> land vehicle
+# LandVehicle -> land vehicle
+# AirVehicle -> air vehicle
+
+class Vehicle:
+    def __init__(self, category=None):
+        self.category = category if category else 'land vehicle'
+
+    def display_info(self):
+        print(f'{self.__class__.__name__} -> {self.category}')        
+
+    
+class LandVehicle(Vehicle):
+    pass
+
+
+class AirVehicle(Vehicle):
+
+    def __init__(self, category=None):
+        self.category = category if category else 'air vehicle'
+
+
+vehicles = [Vehicle(), LandVehicle(), AirVehicle()]
+
+for vehicle in vehicles:
+    vehicle.display_info()
+
+#17.4 __init__ inheritance
+class Vehicle:
+    def __init__(self, brand, color, year):
+        self.brand = brand
+        self.color = color
+        self.year = year
+
+
+class Car(Vehicle):
+    def __init__(self, brand, color, year, horsepower):
+        self.brand = brand
+        self.color = color
+        self.year = year
+        self.horsepower = horsepower
+
+
+vehicle = Vehicle('Tesla', 'red', 2020)
+print(vehicle.__dict__)       
+
+car = Car('Tesla', 'red', 2020, 300)
+print(car.__dict__)
+
+#17.5 super inheritance
+class Vehicle:
+    def __init__(self, brand, color, year):
+        self.brand = brand
+        self.color = color
+        self.year = year
+
+#17.6 super inheritance
+class Car(Vehicle):
+    def __init__(self, brand, color, year, horsepower):
+        super().__init__(brand, color, year)
+        self.horsepower = horsepower
+
+vehicle = Vehicle('Tesla', 'red', 2020)
+print(vehicle.__dict__)       
+
+car = Car('Tesla', 'red', 2020, 300)
+print(car.__dict__)
+
+#17.6 static properties
+class Container:
+    category = 'general purpose'
+
+class TemperatureControlledContainer(Container):
+    
+    temp_range = (-25.0, 25.0)
+
+class RefrigeratedContainer(TemperatureControlledContainer):
+    
+    temp_range = (-25.0, 5.0)
+
+print(getattr(RefrigeratedContainer, 'temp_range'))
+
+#17.7 Multiple inheritance
+class Person:
+    
+    def __init__(self, first_name, last_name, age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+
+class Department:
+    pass
+
+class Worker(Person, Department):
+    pass
+
+worker = Worker('John', 'Doe', 35)
+print(worker.__dict__)
+
+#17.8 The following classes are defined. Add the __init__() method to the Worker class to set all the attributes from the Person and Department classes.
+# Then create an instance of the Worker class passing the following arguments:
+# 'John'
+# 'Doe'
+# 30
+# 'Information Technology'
+# 'IT'
+
+# In response, print the value of the __dict__ attribute of this instance.
+
+# Expected result:
+# {'first_name': 'John', 'last_name': 'Doe', 'age': 30, 'dept_name': 'Information Technology', 'short_dept_name': 'IT'}
+
+class Person:
+    def __init__(self, first_name, last_name, age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+
+class Department:
+    def __init__(self, dept_name, short_dept_name):
+        self.dept_name = dept_name
+        self.short_dept_name = short_dept_name
+
+class Worker(Person, Department):
+    def __init__(
+        self,
+        first_name,
+        last_name,
+        age,
+        dept_name,
+        short_dept_name,
+    ):
+        Person.__init__(self, first_name, last_name, age)
+        Department.__init__(self, dept_name, short_dept_name)
+
+worker = Worker('John', 'Doe', 30, 'Information Technology', 'IT')
+print(worker.__dict__)
