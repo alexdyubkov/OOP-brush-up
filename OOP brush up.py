@@ -1297,3 +1297,21 @@ p1 = Person()
 p2 = Person()
 p3 = Person()
 print(Person.count_instances())
+
+
+#15.1Define a Container class that has a static method (use the staticmethod class - do it in the standard way) named get_current_time() returning the current time in the format '%H:%M:%S', e.g. '09:45:10'.
+import time
+class Container:
+    def get_current_time():
+        return time.strftime('%H:%M:%S', time.localtime())
+    
+    get_current_time = staticmethod(get_current_time)
+
+Container.get_current_time()
+
+#15.2 Same as 15.1 but with decorator
+import time
+class Container:
+    @staticmethod
+    def get_current_time():
+        return time.strftime('%H:%M:%S', time.localtime())
