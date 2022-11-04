@@ -1315,3 +1315,238 @@ class Container:
     @staticmethod
     def get_current_time():
         return time.strftime('%H:%M:%S', time.localtime())
+
+
+#15.1Define a Container class that has a static method (use the staticmethod class - do it in the standard way) named get_current_time() returning the current time in the format '%H:%M:%S', e.g. '09:45:10'.
+import time
+class Container:
+    def get_current_time():
+        return time.strftime('%H:%M:%S', time.localtime())
+    
+    get_current_time = staticmethod(get_current_time)
+
+Container.get_current_time()
+
+#15.2 Same as 15.1 but with decorator
+import time
+class Container:
+    @staticmethod
+    def get_current_time():
+        return time.strftime('%H:%M:%S', time.localtime())
+
+
+# 16.1Define a Person class that takes two bare attributes: fname (first name) and lname (last name). Then implement the __repr__() special method to display a formal representation of the Person object as shown below:
+# [IN]: person = Person('John', 'Doe')
+# [IN]: print(person)
+# [OUT]: Person(fname='John', lname='Doe')
+
+# Create an instance of the Person class with the given attributes:
+# fname = 'Mike'
+# lname = 'Smith'
+# and assign it to the variable person. In response, print the person instance to the console.
+
+# Expected result:
+# Person(fname='Mike', lname='Smith')
+
+class Person:
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+    def __repr__(self):
+        return f"Person(fname='{self.fname}', lname='{self.lname}')"
+
+person = Person('Mike', 'Smith')
+print(person)
+
+
+
+#16.2 with __str__
+class Person:
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+    def __repr__(self):
+        return f"Person(fname='{self.fname}', lname='{self.lname}')"
+
+    def __str__(self):
+        return f'First name: {self.fname}\nLast name: {self.lname}'
+
+person = Person('John', 'Doe')
+print(person)
+
+#16.3For many inputs
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+
+    def __repr__(self):
+        return f'Vector{self.components}'
+
+v1 = Vector(-3, 4, 2)
+print(v1)
+
+
+# 16.3 __len__
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+
+    def __repr__(self):
+        return f'Vector{self.components}'
+
+    def __str__(self):
+        return f'{self.components}'
+
+    def __len__(self):
+        return len(self.components)
+
+v1 = Vector(-3, 4, 2)
+print(len(v1))
+
+#16.4 __bool__
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+
+    def __repr__(self):
+        return f'Vector{self.components}'
+
+    def __str__(self):
+        return f'{self.components}'
+
+    def __len__(self):
+        return len(self.components)   
+
+    def __bool__(self):
+        if not self.components:
+            return False
+        return False if not self.components[0] else True  
+v1 = Vector()
+v2 = Vector(3, 2)
+v3 = Vector(0, -3, 2)
+v4 = Vector(5, 0, -1)
+
+print(bool(v1))
+print(bool(v2))
+print(bool(v3))
+print(bool(v4))
+
+# 16.5 __add__
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+
+    def __repr__(self):
+        return f'Vector{self.components}'
+
+    def __str__(self):
+        return f'{self.components}'
+
+    def __len__(self):
+        return len(self.components)
+
+    def __add__(self, other):
+        components = tuple(
+            x + y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+v1 = Vector(4, 2)
+v2 = Vector(-1, 3)
+print(v1 + v2)
+
+#16.6 other basic operations
+class Vector:
+    def __init__(self, *components):
+        self.components = components
+
+    def __repr__(self):
+        return f'Vector{self.components}'
+
+    def __str__(self):
+        return f'{self.components}'
+
+    def __len__(self):
+        return len(self.components)
+
+    def __add__(self, other):
+        components = tuple(
+            x + y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+    def __sub__(self, other):
+        components = tuple(
+            x - y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+    def __mul__(self, other):
+        components = tuple(
+            x * y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+    def __truediv__(self, other):
+        components = tuple(
+            x / y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+    def __floordiv__(self, other):
+        components = tuple(
+            x // y
+            for x, y in zip(self.components, other.components)
+        )
+        return Vector(*components)
+
+v1 = Vector(4, 2)
+v2 = Vector(-1, 4)
+print(v1 // v2)
+
+#16.7 __add__ strings 
+class Doc:
+
+    def __init__(self, string):
+        self.string = string
+
+    def __repr__(self):
+        return f"Doc(string='{self.string}')"
+
+    def __str__(self):
+        return f'{self.string}'
+
+    def __add__(self, other):
+        return Doc(self.string + ' ' + other.string)
+
+doc1 = Doc('Python')
+doc2 = Doc('3.8')
+print(doc1 + doc2)
+
+#16.7 Comparison
+class Doc:
+    def __init__(self, string):
+        self.string = string
+
+    def __repr__(self):
+        return f"Doc(string='{self.string}')"
+
+    def __str__(self):
+        return f'{self.string}'
+
+    def __add__(self, other):
+        return Doc(self.string + ' ' + other.string)
+
+    def __eq__(self, other):
+        return self.string == other.string  
+
+doc1 = Doc('Python')
+doc2 = Doc('3.8')
+print(doc1 == doc2)
