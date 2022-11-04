@@ -1728,3 +1728,55 @@ class Worker(Person, Department):
 
 worker = Worker('John', 'Doe', 30, 'Information Technology', 'IT')
 print(worker.__dict__)
+
+
+
+
+#18.1 Abstract class
+from abc import ABC, abstractmethod
+class Figure(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+class Square(Figure):
+
+    def __init__(self, a):
+        self.a = a
+
+    def area(self):
+        return self.a * self.a
+
+    def perimeter(self):
+        return 4 * self.a
+
+square = Square(10)
+print(square.area())
+print(square.perimeter())
+
+#18.2 Inheritance + abstractmethod
+from abc import ABC, abstractmethod
+class TaxPayer(ABC):
+
+    def __init__(self, salary):
+        self.salary = salary
+
+    @abstractmethod
+    def calculate_tax(self):
+        pass
+
+class StudentTaxPayer(TaxPayer):
+    def calculate_tax(self):
+        return self.salary * 0.15
+    
+class DisabledTaxPayer(TaxPayer):
+
+    def calculate_tax(self):
+        return min(self.salary * 0.12, 5000.0)
+        
+disabled = DisabledTaxPayer(50000)
+print(disabled.calculate_tax())
