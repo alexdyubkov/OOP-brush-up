@@ -1780,3 +1780,100 @@ class DisabledTaxPayer(TaxPayer):
         
 disabled = DisabledTaxPayer(50000)
 print(disabled.calculate_tax())
+
+
+#19.1 sort by one of the arguments of the instance 
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+people = [
+    Person('Tom', 25),
+    Person('John', 29),
+    Person('Mike', 27),
+    Person('Alice', 19),
+]
+people.sort(key=lambda person: person.age)
+
+for person in people:
+    print(f'{person.name} -> {person.age}')
+
+
+#19.2The following Point class is given. Implement a reset() method that allows you to set the values of the x and y attributes to zero. Then create an instance of the Point class with coordinates (4, 2) and print it to the console. Call the reset() method on this instance and print the instance to the console again.
+# Expected result:
+# Point(x=4, y=2)
+# Point(x=0, y=0)
+class Point:
+
+    def __init__(self, x, y):
+        self.x = x 
+        self.y = y
+    
+    def reset(self):
+        self.x = 0 
+        self.y = 0
+
+
+    def __repr__(self):
+        return f"Point(x={self.x}, y={self.y})"
+
+point=Point(4,2)
+print(point)
+point.reset()
+print(point)
+
+#19.3 Your function in class, operation on instances
+import math
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"Point(x={self.x}, y={self.y})"
+
+    def reset(self):
+        self.x = 0
+        self.y = 0
+
+    def calc_distance(self, other):
+        return math.sqrt(
+            (self.x - other.x) ** 2 + (self.y - other.y) ** 2
+        )
+
+p1 = Point(3, 4)
+p2 = Point(7, 7)
+print(p1.calc_distance(p2))
+
+
+#19.4 Self-created Instance attribute 
+import datetime
+class Note:
+    def __init__(self, content):
+        self.content = content
+        self.creation_time = datetime.datetime.now().strftime(
+            '%m-%d-%Y %H:%M:%S'
+        )
+        
+note1 = Note('My first note.')
+note2 = Note('My second note.')
+
+print(note1.creation_time)
+
+#19.5 Add clients to [] after creating new instance of the class
+class Client:
+    all_clients = []
+
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        Client.all_clients.append(self)
+
+    def __repr__(self):
+        return f"Client(name='{self.name}', email='{self.email}')"
+
+client1 = Client('Tom', 'sample@gmail.com')
+client2 = Client('Donald', 'sales@yahoo.com')
+client3 = Client('Mike', 'sales-contact@yahoo.com')        
+print(Client.all_clients)
